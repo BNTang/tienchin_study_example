@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="hoildayRequestDemo" name="hoildayRequestDemo" isExecutable="true">
+    <startEvent id="startEvent" name="开始一个请假流程"/>
+    <userTask id="approveRequest" name="批准或者拒绝请假请求"/>
+    <sequenceFlow id="sid-2c071863-1141-44c9-86f1-57f747b0e74c" sourceRef="startEvent" targetRef="approveRequest"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_hoildayRequestDemo">
+    <bpmndi:BPMNPlane bpmnElement="hoildayRequestDemo" id="BPMNPlane_hoildayRequestDemo">
+      <bpmndi:BPMNShape id="shape-720716bb-7992-4c79-9289-7697c965a250" bpmnElement="startEvent">
+        <omgdc:Bounds x="-550.0" y="65.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-4bbbd282-b4b4-4ebc-a979-f148f400e7d2" bpmnElement="approveRequest">
+        <omgdc:Bounds x="-425.0" y="40.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-c9de96ec-da86-43c6-b84f-c185782ac4ff" bpmnElement="sid-2c071863-1141-44c9-86f1-57f747b0e74c">
+        <omgdi:waypoint x="-520.0" y="80.0"/>
+        <omgdi:waypoint x="-425.0" y="80.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
