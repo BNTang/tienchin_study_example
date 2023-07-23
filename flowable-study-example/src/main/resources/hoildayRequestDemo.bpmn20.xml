@@ -4,6 +4,20 @@
     <startEvent id="startEvent" name="开始一个请假流程"/>
     <userTask id="approveRequest" name="批准或者拒绝请假请求"/>
     <sequenceFlow id="sid-2c071863-1141-44c9-86f1-57f747b0e74c" sourceRef="startEvent" targetRef="approveRequest"/>
+    <exclusiveGateway id="sid-16f3e17b-ae07-4bdb-9406-91d852972236"/>
+    <sequenceFlow id="sid-855a3b72-d941-4fac-b1a1-9846cdd1a3e6" sourceRef="approveRequest" targetRef="sid-16f3e17b-ae07-4bdb-9406-91d852972236"/>
+    <serviceTask id="fasongqingjiashenpitongguodeEmail" flowable:exclusive="true" name="发送请假审批通过的邮箱"/>
+    <sequenceFlow id="gateway_to_approve" sourceRef="approveOrRejectGateway" targetRef="sendApproveEmail">
+      <conditionExpression xsi:type="tFormalExpression">${approve}</conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="fasongqingjiabeijujuedeeamil" flowable:exclusive="true" name="发送请假被拒绝的邮箱"/>
+    <sequenceFlow id="gateway_to_reject" sourceRef="sid-16f3e17b-ae07-4bdb-9406-91d852972236" targetRef="fasongqingjiabeijujuedeeamil" name="从网关到请求被拒绝">
+      <conditionExpression xsi:type="tFormalExpression">${!approve}</conditionExpression>
+    </sequenceFlow>
+    <endEvent id="sid-3e13cf3b-46c6-4b6c-8bc5-179177fa3570"/>
+    <sequenceFlow id="sid-7941c74b-12f5-4f44-b1f8-020d3802959d" sourceRef="fasongqingjiashenpitongguodeEmail" targetRef="sid-3e13cf3b-46c6-4b6c-8bc5-179177fa3570"/>
+    <endEvent id="sid-6888d8c3-5d01-4f5f-aa68-a43c16c41bfa"/>
+    <sequenceFlow id="sid-1c0f8eb4-921a-43fa-b24f-926ea62574da" sourceRef="fasongqingjiabeijujuedeeamil" targetRef="sid-6888d8c3-5d01-4f5f-aa68-a43c16c41bfa"/>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_hoildayRequestDemo">
     <bpmndi:BPMNPlane bpmnElement="hoildayRequestDemo" id="BPMNPlane_hoildayRequestDemo">
@@ -16,6 +30,42 @@
       <bpmndi:BPMNEdge id="edge-c9de96ec-da86-43c6-b84f-c185782ac4ff" bpmnElement="sid-2c071863-1141-44c9-86f1-57f747b0e74c">
         <omgdi:waypoint x="-520.0" y="80.0"/>
         <omgdi:waypoint x="-425.0" y="80.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-7d5f411f-f2e2-4c4a-ac43-368ef7489c11" bpmnElement="sid-16f3e17b-ae07-4bdb-9406-91d852972236">
+        <omgdc:Bounds x="-230.0" y="60.0" width="40.0" height="40.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-20bcfcad-f8b8-4a3c-8f2b-1540b0903b10" bpmnElement="sid-855a3b72-d941-4fac-b1a1-9846cdd1a3e6">
+        <omgdi:waypoint x="-325.0" y="80.0"/>
+        <omgdi:waypoint x="-230.0" y="80.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-c1f0d7a5-355f-4cc7-857e-ec50ad44e5f9" bpmnElement="fasongqingjiashenpitongguodeEmail">
+        <omgdc:Bounds x="-110.0" y="40.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-7388f00b-1867-4b52-87e2-1c8dbcac5588" bpmnElement="gateway_to_approve">
+        <omgdi:waypoint x="-190.0" y="80.0"/>
+        <omgdi:waypoint x="-110.0" y="80.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-28a27ae4-28cf-4257-8858-7fd1222f9b58" bpmnElement="fasongqingjiabeijujuedeeamil">
+        <omgdc:Bounds x="-110.0" y="165.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-c687124b-5335-44b3-9e84-4c08c759e566" bpmnElement="gateway_to_reject">
+        <omgdi:waypoint x="-210.0" y="100.0"/>
+        <omgdi:waypoint x="-210.0" y="185.0"/>
+        <omgdi:waypoint x="-110.0" y="185.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-3032c01b-f310-4734-b570-13a5b50f5792" bpmnElement="sid-3e13cf3b-46c6-4b6c-8bc5-179177fa3570">
+        <omgdc:Bounds x="115.0" y="65.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-cbdabd5a-0320-4beb-8746-8a0b2c3d982b" bpmnElement="sid-7941c74b-12f5-4f44-b1f8-020d3802959d">
+        <omgdi:waypoint x="-10.0" y="80.0"/>
+        <omgdi:waypoint x="115.0" y="80.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-b5991b38-6b94-478d-968a-d137717678f6" bpmnElement="sid-6888d8c3-5d01-4f5f-aa68-a43c16c41bfa">
+        <omgdc:Bounds x="110.0" y="170.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-7ac3bda4-a111-4f1b-a1cd-0e673c8d3ed9" bpmnElement="sid-1c0f8eb4-921a-43fa-b24f-926ea62574da">
+        <omgdi:waypoint x="-10.0" y="185.0"/>
+        <omgdi:waypoint x="110.0" y="185.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
